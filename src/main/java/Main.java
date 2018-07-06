@@ -100,6 +100,8 @@ public class Main
     // Setup proxy servlet
     ServletContextHandler context = new ServletContextHandler(proxy, "/", ServletContextHandler.SESSIONS);
     ServletHolder proxyServlet = new ServletHolder(AsyncProxyServlet.Transparent.class);
+    proxyServlet.setInitParameter("proxyTo", "http://localhost/");
+    proxyServlet.setInitParameter("Prefix", "/");
     context.addServlet(proxyServlet, "/*");
 
     server.start();
@@ -133,8 +135,8 @@ public class Main
 
   public static void main(String[] args) throws Exception
   {
-    // reverseProxy();
-    myReverseProxy();
+    reverseProxy();
+    // myReverseProxy();
   }
 
   private static class QueryForwardingRequestWrapper implements HttpServletRequest
